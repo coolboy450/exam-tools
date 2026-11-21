@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>เครื่องมือเตรียมสอบเข้า — คำนวณคะแนน + จัดตารางอ่านหนังสือ</title>
+<meta name="description" content="เครื่องมือฟรีสำหรับนักเรียนเตรียมสอบเข้า ม.1 / ม.4: คำนวณคะแนนรวมแบบถ่วงน้ำหนักว่าถึงเป้าไหม และจัดตารางอ่านหนังสือรายสัปดาห์ตามวันสอบ พิมพ์ได้ ไม่เก็บข้อมูลบนเซิร์ฟเวอร์">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script defer src="assets/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./"><span class="mark" aria-hidden="true">เตรียม</span><span>เครื่องมือเตรียมสอบเข้า</span></a>
+  <a class="ext" href="https://coolboy450.github.io/tiwkapnoob/">ฝึกทำข้อสอบ →</a>
+</div></header>
+
+<main id="main" class="wrap" tabindex="-1">
+  <div class="tabs" role="tablist" aria-label="เลือกเครื่องมือ">
+    <button type="button" role="tab" id="t-score" aria-controls="p-score" aria-selected="true">🎯 คำนวณคะแนน</button>
+    <button type="button" role="tab" id="t-plan" aria-controls="p-plan" aria-selected="false">📅 ตารางอ่านหนังสือ</button>
+  </div>
+
+  <!-- คำนวณคะแนน -->
+  <section id="p-score" role="tabpanel" aria-labelledby="t-score">
+    <h1>คำนวณคะแนนรวม ถึงเป้าไหม?</h1>
+    <p class="lead">ใส่คะแนนที่ได้ในแต่ละวิชา (จากข้อสอบฝึกหรือข้อสอบจริง) พร้อมน้ำหนักตามเกณฑ์ของโรงเรียนที่อยากเข้า วิชาที่ยังไม่รู้คะแนนให้เว้นว่างไว้ ระบบจะบอกว่าต้องได้เท่าไหร่ถึงจะถึงเป้า</p>
+    <div class="card">
+      <label class="f narrow">เป้าหมายคะแนนรวม (%)
+        <input id="target" type="number" inputmode="decimal" min="1" max="100" value="70">
+        <small>ดูเกณฑ์/คะแนนปีก่อนของโรงเรียนที่ประกาศเอง แล้วใส่ตรงนี้ เครื่องมือนี้ไม่มีข้อมูลคะแนนขั้นต่ำของโรงเรียนใด</small>
+      </label>
+      <div class="rows" id="rows" role="group" aria-label="รายวิชา"></div>
+      <div class="btns"><button type="button" class="btn" id="add">+ เพิ่มวิชา</button><button type="button" class="btn ghost" id="reset-score">ล้างคะแนน</button></div>
+    </div>
+    <div class="card out" id="score-out" aria-live="polite"></div>
+  </section>
+
+  <!-- ตารางอ่านหนังสือ -->
+  <section id="p-plan" role="tabpanel" aria-labelledby="t-plan" hidden>
+    <h1>จัดตารางอ่านหนังสือตามวันสอบ</h1>
+    <p class="lead">บอกวันสอบ เวลาที่อ่านได้ และความมั่นใจในแต่ละวิชา วิชาที่ยังอ่อนจะได้เวลามากกว่า แล้วได้ตารางประจำสัปดาห์ที่พิมพ์ไปแปะโต๊ะได้</p>
+    <div class="card">
+      <div class="grid2">
+        <label class="f">วันสอบ<input id="exam-date" type="date"></label>
+        <label class="f">วันธรรมดา อ่านได้กี่ชั่วโมง/วัน<input id="h-week" type="number" inputmode="decimal" min="0" max="12" step="0.5" value="2"></label>
+        <label class="f">เสาร์-อาทิตย์ อ่านได้กี่ชั่วโมง/วัน<input id="h-end" type="number" inputmode="decimal" min="0" max="14" step="0.5" value="4"></label>
+      </div>
+      <h2>ความมั่นใจแต่ละวิชา</h2>
+      <div class="rows" id="plan-rows" role="group" aria-label="วิชาและความมั่นใจ"></div>
+      <div class="btns"><button type="button" class="btn" id="add-plan">+ เพิ่มวิชา</button></div>
+    </div>
+    <div class="card out" id="plan-out" aria-live="polite"></div>
+    <div class="btns noprint"><button type="button" class="btn p" id="print">🖨️ พิมพ์ตาราง</button></div>
+  </section>
+
+  <p class="foot-note">ข้อมูลที่กรอกอยู่บนเครื่องของคุณเท่านั้น (เก็บในเบราว์เซอร์) ไม่ส่งไปที่ไหน · เครื่องมือช่วยวางแผน ไม่ใช่การรับรองผลสอบ</p>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p>ทำโดย <a href="https://github.com/coolboy450">noob_dev</a> · โค้ดเปิด (MIT) ·
+  <a href="https://github.com/coolboy450/exam-tools">GitHub</a> ·
+  <a href="https://github.com/coolboy450/tiwkapnoob">ติวกับนูบ</a></p>
+</div></footer>
+</body>
+</html>
